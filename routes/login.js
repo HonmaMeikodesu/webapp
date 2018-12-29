@@ -24,7 +24,7 @@ router.post('/', function(req, res, next) {
             console.log('[SELECT ERROR] - ',err.message);
             return;
         };
-        console.log(result);
+
         for(var i in result){
             if(result[i].account_name===req.body.account_name){
                 indi=false;
@@ -40,6 +40,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.post('/',function (req,res) {
+    var astr;
     var sql1 = 'SELECT account_password FROM user_info WHERE account_name=?';
     var sqlpara=req.body.account_name;
     connection.query(sql1,sqlpara, function (err, result) {
@@ -51,9 +52,23 @@ router.post('/',function (req,res) {
             if (result[0].account_password !== req.body.account_password) {
                 res.send("密码错误！");
             }else {
-                res.cookie("account_name", req.body.account_name, {maxAge: 20000, httpOnly: true});
-                res.cookie("account_password", req.body.account_password, {maxAge: 20000, httpOnly: true});
-                res.render("index", {account_name: req.body.account_name});
+                var sql="SELECT avatar_url FROM user_info WHERE account_name=?";
+                var sqlpara=req.body.account_name;
+
+                connection.query(sql,sqlpara,function (err,result) {
+                    if(err){
+                        console.log('[SELECT ERROR] - ',err.message);
+                        return;
+                    }
+
+                    astr="/images/"+result[0].avatar_url;
+                    console.log(astr);
+                    res.cookie("account_name", req.body.account_name, {maxAge: 40000, httpOnly: true});
+                    res.cookie("account_password", req.body.account_password, {maxAge: 40000, httpOnly: true});
+                    res.cookie("account_avatar",astr,{maxAge:40000,httpOnly:true});
+                    res.render("index", {account_name: req.body.account_name,avatar_img:astr});
+                })
+
             }
     });
 });

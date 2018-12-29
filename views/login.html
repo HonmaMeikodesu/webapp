@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>美食天下</title>
+    <link rel="stylesheet" type="text/css" href="https://static.meishichina.com/v6/css/lib/all.css?v1=11">
+    <link rel="stylesheet" type="text/css" href="https://static.meishichina.com/v6/css/app/center/user.css?v1=2016-08-10">
+    <link rel="stylesheet" href="/stylesheets/homePage.css">
+    <script src="/javascripts/jquery.js"></script>
+</head>
+<body style="background-color: #D2D2D2">
+<div  style="margin: 0px; padding: 0px; position: fixed; left: 0px; top: 0px; width: 100%; height: 100%;"></div>
+<div class="loginbox">
+    <div class="loginbox_h">
+        <a onclick="signin()">注册</a>
+        <a onclick="login()">登录</a>
+    </div>
+    <div class="loginbox_c">
+        <!--注册界面-->
+        <form  method="post" id="signinInfo" name="signinInfo" action="/register" >
+            <div class="loginbox_l  login" style="border:none;display: inline" id="signdiv">
+                <ul class="mform_r">
+                    <li><label for="name">手机号/昵称：</label><input type="text" name="account_name" id="name" value="">
+                        <div id="name_detect"></div>
+                    </li>
+                    <li ><label for="myPassword">密　码：</label><input type="password" name="account_password" id="myPassword"></li>
+                    <div class="layui-input-block" style="margin-left: 10px;margin-top: 7px;margin-bottom: -6px;">
+                        性别：<input type="radio" name="sex" value="男" title="男">男
+                        <input type="radio" name="sex" value="女" title="女" checked>女
+                    </div>
+                </ul>
+                <input type="submit" id="signinbtn" class="loginbtn" style="margin-top:30px" value="注&nbsp;册" >
+            </div>
+        </form>
+        <!--登录界面-->
+        <form id="loginform" name="loginform"  method="post" style="display: none" action="/login">
+            <div class="loginbox_l  login" style="border:none" id="logdiv">
+                <ul class="mform_r">
+                    <li><label for="username">手机号/昵称：</label><input type="text" name="account_name" id="username"></li>
+                    <li style="border:0;"><label for="password">密　码：</label><input value="" type="password" name="account_password" id="password"></li>
+                </ul>
+                <input type="submit" id="loginbtn" class="loginbtn" style="margin-top:30px" value="登&nbsp;录" >
+            </div>
+        </form>
+    </div>
+
+</div>
+<script src="/javascripts/SignOrLog.js"></script>
+</body>
+</html>

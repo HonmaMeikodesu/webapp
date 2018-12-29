@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<p>Welcome!<%=account_name %></p>
+<img src="<%=avatar_img %>" style="height: 200px;width: 200px">
+<form action="/fileUpload/avatar" enctype="multipart/form-data" method="post">
+    <input type="file" name="avatar_upload" value="选择文件"/>
+    <input type="submit" value="Upload"/>
+</form>
+</body>
+</html>

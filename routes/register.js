@@ -17,15 +17,15 @@ router.post('/', function(req, res, next) {
         name:req.body.account_name,
         password:req.body.account_password
     }
-    var  addSql = 'INSERT INTO user_info(account_name,account_password) VALUES(?,?)';
-    var  addSqlParams = [register_account.name,register_account.password];
+    var  addSql = 'INSERT INTO user_info(account_name,account_password,avatar_url) VALUES(?,?,?)';
+    var  addSqlParams = [register_account.name,register_account.password,"origin.jpg"];
     connection.query(addSql,addSqlParams,function (err, result) {
         if(err){
             console.log('[INSERT ERROR] - ',err.message);
             return;
         }
     });
-    res.end();
+    res.render("login");
 
 });
 
