@@ -52,7 +52,7 @@ router.post('/',function (req,res) {
             if (result[0].account_password !== req.body.account_password) {
                 res.send("密码错误！");
             }else {
-                var sql="SELECT avatar_url FROM user_info WHERE account_name=?";
+                var sql="SELECT avatar_url,account_id FROM user_info WHERE account_name=?";
                 var sqlpara=req.body.account_name;
 
                 connection.query(sql,sqlpara,function (err,result) {
@@ -66,7 +66,8 @@ router.post('/',function (req,res) {
                     res.cookie("account_name", req.body.account_name, {maxAge: 40000, httpOnly: true});
                     res.cookie("account_password", req.body.account_password, {maxAge: 40000, httpOnly: true});
                     res.cookie("account_avatar",astr,{maxAge:40000,httpOnly:true});
-                    res.render("index", {account_name: req.body.account_name,avatar_img:astr});
+                    res.cookie("account_id",result[0].account_id,{maxAge:40000,httpOnly:true});
+                    res.render("index", {account_name: req.body.account_name,avatar_img:astr,account_intro:"待会删掉",account_sex:"男"});
                 })
 
             }

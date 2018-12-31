@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人中心 - 美食天下</title>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="" />
+    <script src="/javascripts/jquery.js"></script>
+
+</head>
+
+<body>
+        <form action="/creatTopic/pic" enctype="multipart/form-data" method="post" >
+            <input type="file" name="topicpicupload" value="选择文件"/>
+            <input type="submit" value="Upload" id="upload"/>
+        </form>
+        <form action="/creatTopic/body" method="post" id="stringchange">
+            <input type="text" name="title" >
+            <textarea  name="message"></textarea>
+
+        </form>
+</body>
+<script>
+    $("#upload").click(function () {
+        var str=$("#stringchange").serialize();
+        $.post('/creatTopic/body',str);
+    })
+</script>
+</html>

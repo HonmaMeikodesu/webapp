@@ -13,7 +13,6 @@ var connection = mysql.createConnection({
 connection.connect();
 
 router.get('/', function(req, res, next) {
-    console.log("hello")
     var sql = 'SELECT account_name FROM user_info';
     connection.query(sql, function (err, result) {
         var indi = true;

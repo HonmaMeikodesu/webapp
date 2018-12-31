@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/javascripts/jquery.js"></script>
+</head>
+<body>
+<% var i=0; %>
+<% var str; %>
+<% while(i<=(owner.length-1)){ %>
+<%     str=owner[i].new_title; %>
+<div class="newowner">
+    <img src="/images/<%= owner[i].avatar_url %>">
+    <div><%= owner[i].account_name %></div>
+    <div><%= owner[i].new_title %></div>
+    <div><%= owner[i].new_content %></div>
+    <img src="/topic_images/<%= owner[i].new_picture %>">
+    <div><%= owner[i].new_createDate %></div>
+</div>
+<form action="/sendComments" method="post">
+    <input type="text" name="new_id" value="<%=owner[i].new_id%>" style="display: none">
+    <textarea name="comment_content"></textarea>
+    <input type="submit" value="提交评论">
+</form>
+<%     while(str==owner[i].new_title){ %>
+<%     if(owner[i].comment_content!=null){ %>
+<div class="comments">
+    <img src="/images/<%= sender[i].avatar_url %>">
+    <div><%= sender[i].account_name %></div>
+    <div><%= sender[i].comment_content %></div>
+    <div><%= sender[i].comment_creatTime %></div>
+</div>
+<% } %>
+<%          i+=1;if(i>=owner.length){break;}}}  %>
+</body>
+</html>
+

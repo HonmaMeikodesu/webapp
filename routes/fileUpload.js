@@ -89,8 +89,17 @@ router.post('/avatar',  function(req, res) {
                 return;
             }
         });
+        var searchsql='SELECT account_intro,account_sex FROM user_info WHERE account_name=?';
+        var searchpara=req.cookies.account_name;
+        connection.query(searchsql,searchpara,function (err,result) {
+            if(err){
+                console.log('[INSERT ERROR] - ',err.message);
+                return;
+            }
+            res.render('index',{account_name:req.cookies.account_name,avatar_img:"/images/"+avatarName,account_intro:result[0].account_intro,account_sex:result[0].account_sex});
+        })
         res.cookie("account_avatar","/images/"+avatarName,{maxAge:40000,httpOnly:true});
-        res.send("ok!");
+
     });
     return;
 });
