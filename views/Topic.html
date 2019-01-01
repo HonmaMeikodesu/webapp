@@ -1,129 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>个人中心 - 美食天下</title>
-    <meta name="renderer" content="webkit">
-    <meta name="keywords" content="">
-    <meta name="description" content="" />
-    <link rel="shortcut icon" href="https://static.meishichina.com/v6/img/lib/f.ico" />
-    <link rel="apple-touch-icon" href="https://static.meishichina.com/v6/img/lib/wapico.png" />
-    <!--本地CSS-->
-    <link rel="stylesheet" type="text/css" href="..\css\personal\style1.css">
-    <link rel="stylesheet" type="text/css" href="..\css\personal\style2.css">
-    <link rel="stylesheet" type="text/css" href="..\css\personal\style3.css">
-
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="/javascripts/jquery.js"></script>
 </head>
 <body>
-    <!--上面导航栏-->
-    <div class="top-bar" id="J_top_bar">
-        <!--左边-->
-        <ul class="bar-left left">
-            <li><a title="美食天下" href="../index.html" target="_blank" class="top_bar_logo">首页</a></li>
-            <li><a title="菜谱" target="_blank" href="menu-g.html">菜谱</a></li>
-            <li><a title="社区" target="_blank" href="k_saytit.html">社区</a></li>
-        </ul>
-        <!--右边-->
-        <div id="J_top_bar_user">
-            <li class="bar-add J_down bar-item">
-                <!--外引图片-->
-                <div class="bar-text"><img width="18" height="18" src="//static.meishichina.com/v6/img/lib/nr1.png">发布</div>
-                <div class="bar-box">
-                    <ul>
-                        <li class="bar-box-item-1">
-                            <a href="createTopic.html" target="_blank" class="J_barLogin">发话题</a>
-                        </li>
-                    </ul>
-                </div>
-            </li>
-        </div>
-
-    </div>
-
-    <!-- 主框架-->
-    <div class="w_main clear">
-        <!-- 左侧 -->
-        <div class="mod_left">
-            <div class="menu_wrap">
-                <ul>
-                    <li>
-                        <a href="personal.html">个人<br>中心</a>
-                    </li>
-                    <li>
-                        <a class=on href="javascript:void(0)">话题</a>
-                    </li>
-                    <li>
-                        <a href="">收藏</a>
-                    </li>
-                    <li>
-                        <a href="Setting.html">账户<br>设置</a>
-                    </li>
-                    <li>
-                        <a href="">退出</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <!-- 左侧结束 -->
-        <!-- 右侧 -->
-        <div class="mod_right">
-            <div id="mod_location">
-                <div class="mod_location clear">
-                    <div class="left">
-                        <a href="#" class="on">我的话题</a>
-                    </div>
-
-                    <div class="right">
-                        <!--不跳转页面-->
-                        <a class="add" href="createTopic.html">发布新话题</a>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="ui_newlist_1 get_num mt60 clear" id="J_list">
-                <!-- 无数据 -->
-                <div class="ui_no_data">
-                    <!-- 结合用户修改 -->
-                    <p>
-                        您还没有发布新话题噢，快点击这里<a href="createTopic.html">发布新话题</a>吧！
-                    </p>
-                </div>
-                <!-- 有数据 -->
-                <ul>
-                    <li data-id="956258">
-                        <div class="left">
-                            <div class="cpai">
-                                <div class="pp">
-
-                                    <p class="fontsize"> <strong>美食</strong> </p>
-                                    <p class="fontsize1">《问题餐厅》是这个冬末最【暖】的日剧了。戏里的主厨们......</p>
-
-                                </div>
-
-                                <!--照片
-                                    <a class="clear" href="https://home.meishichina.com/pai-956258.html" target="_blank">
-                                     <img class="imgLoad" src="https://i3.meishichina.com/attachment/pai/2018/12/20/20181220154527870347756111236124.jpg?x-oss-process=style/c180"
-                                            style="display: block;">
-                                    </a>
-                                    -->
-                                <!--时间
-                                    <div class="substatus clear">
-                                        2018-12-20&nbsp;&nbsp;<span class="get_nums" style="display: none;">0个喜欢，2条评论</span>
-                                    </div>
-                                    -->
-                            </div>
-                        </div>
-                        <div class="right"></div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-    </div>
-    <!-- 右侧结束 -->
-    </div>
-
+<% var i=0; %>
+<% var str; %>
+<% while(i<=(owner.length-1)){ %>
+<%     str=owner[i].new_title; %>
+<div class="newowner">
+    <img src="/images/<%= owner[i].avatar_url %>">
+    <div><%= owner[i].account_name %></div>
+    <div><%= owner[i].new_title %></div>
+    <div><%= owner[i].new_content %></div>
+<%  if(owner[i].new_picture!=null){ %>
+    <img src="/topic_images/<%= owner[i].new_picture %>">
+<%  }   %>
+    <div><%= owner[i].new_createDate %></div>
+</div>
+<form action="/sendComments" method="post">
+    <input type="text" name="new_id" value="<%=owner[i].new_id%>" style="display: none">
+    <textarea name="comment_content"></textarea>
+    <input type="submit" value="提交评论">
+</form>
+<%     while(str==owner[i].new_title){ %>
+<%     if(owner[i].comment_content!=null){ %>
+<div class="comments">
+    <img src="/images/<%= sender[i].avatar_url %>">
+    <div><%= sender[i].account_name %></div>
+    <div><%= sender[i].comment_content %></div>
+    <div><%= sender[i].comment_creatTime %></div>
+</div>
+<% } %>
+<%          i+=1;if(i>=owner.length){break;}}}  %>
 </body>
 </html>
 
