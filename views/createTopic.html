@@ -1,0 +1,96 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>个人中心 - 美食天下</title>
+    <meta name="renderer" content="webkit">
+    <meta name="keywords" content="">
+    <meta name="description" content="" />
+    <link rel="shortcut icon" href="https://static.meishichina.com/v6/img/lib/f.ico" />
+    <link rel="apple-touch-icon" href="https://static.meishichina.com/v6/img/lib/wapico.png" />
+
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/personal/style1.css">
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/personal/style2.css">
+    <link rel="stylesheet" type="text/css" href="../public/stylesheets/personal/style3.css">
+
+</head>
+
+<body>
+    <!--上面导航栏-->
+    <div class="top-bar" id="J_top_bar">
+        <ul class="bar-left left">
+            <li><a title="美食天下" href="homePage2.html" target="_blank" class="top_bar_logo">首页</a></li>
+            <li><a title="菜谱" target="_blank" href="menu.html">菜谱</a></li>
+            <li><a title="社区" target="_blank" href="k_saytit.html">社区</a></li>
+        </ul>
+
+        <div id="J_top_bar_user">
+            <li class="bar-add J_down bar-item">
+                <div class="bar-text"><img width="18" height="18" src="//static.meishichina.com/v6/img/lib/nr1.png">发布</div>
+                <div class="bar-box">
+                    <ul>
+                        <li class="bar-box-item-1"><a href="createTopic.html" target="_blank"
+                                class="J_barLogin">发话题</a></li>
+                    </ul>
+                </div>
+            </li>
+        </div>
+
+    </div>
+
+    <!-- 主框架-->
+    <div class="w_main clear">
+        <!-- 左侧 -->
+        <div class="mod_left">
+            <div class="menu_wrap">
+                <ul>
+                    <li>
+                        <a href="personal.html">个人<br>中心</a>
+                    </li>
+                    <li>
+                        <a class=on href="javascript:void(0)">话题</a>
+                    </li>
+                    <li>
+                        <a href="">收藏</a>
+                    </li>
+                    <li>
+                        <a href="Setting.html">账户<br>设置</a>
+                    </li>
+                    <li>
+                        <a href="">退出</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <!-- 左侧结束 -->
+        <!-- 右侧 -->
+        <div class="mod_right">
+            <div id="mod_location">
+                <div class="mod_location clear">
+                    <div class="left">发布新话题</div>
+                </div>
+            </div>
+
+            <form action="/center/pai-add/" id="J_form" enctype="multipart/form-data" method="post">
+                <div class="mr_edit mr_edit_center clear">
+                    <ul>
+                        <li>
+                            <label>加个标题（非必填）</label><br>
+                            <input id="com_title" name="title" class="inputM" type="text">
+                        </li>
+                        <li>
+                            <label class="must">写话题</label><br>
+                            <textarea id="J_message" name="message" style="height:300px;"></textarea>
+                        </li>
+                    </ul>
+                    <input class="btn1" name="submit" type="submit" value="发布话题">
+                </div>
+            </form>
+        </div>
+        <!-- 右侧结束 -->
+    </div>
+
+</body>
+
+</html>
