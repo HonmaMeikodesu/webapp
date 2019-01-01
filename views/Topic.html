@@ -15,7 +15,9 @@
     <div><%= owner[i].account_name %></div>
     <div><%= owner[i].new_title %></div>
     <div><%= owner[i].new_content %></div>
+<%  if(owner[i].new_picture!=null){ %>
     <img src="/topic_images/<%= owner[i].new_picture %>">
+<%  }   %>
     <div><%= owner[i].new_createDate %></div>
 </div>
 <form action="/sendComments" method="post">

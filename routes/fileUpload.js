@@ -17,21 +17,7 @@ connection.connect();
 
 router.post('/avatar',  function(req, res) {
     var present="C:\\Users\\王铭\\WebstormProjects\\webapp\\public\\images\\"
-    var delmql="SELECT avatar_url FROM user_info WHERE account_name=?";
-    var delmqlpara=req.cookies.account_name;
-    connection.query(delmql,delmqlpara,function (err,result) {
-        if(err){
-            console.log('[INSERT ERROR] - ',err.message);
-            return;
-        }
-        if(result[0].avatar_url!=="origin.jpg"){
-            fs.unlink(present+result[0].avatar_url,function (err2) {
-                if(err2){
-                    throw err2;
-                }
-            })
-        }
-    })
+
     var form = new formidable.IncomingForm();
     form.encoding = 'utf-8';
     form.keepExtensions = true;
@@ -63,43 +49,69 @@ router.post('/avatar',  function(req, res) {
         }
 
         if(extName.length === 0){
-            res.locals.error = '只支持png和jpg格式图片';
-            res.send("err");
+            var searchsql='SELECT account_intro,account_sex FROM user_info WHERE account_name=?';
+            var searchpara=req.cookies.account_name;
+            connection.query(searchsql,searchpara,function (err,result) {
+                if(err){
+                    console.log('[INSERT ERROR] - ',err.message);
+                    return;
+                }
+                res.render('index',{account_name:req.cookies.account_name,avatar_img:req.cookies.account_avatar,account_intro:result[0].account_intro,account_sex:result[0].account_sex});
+            })
             return;
-        }
-
-        var avatarName = Math.random() + '.' + extName;
-        var newPath = present + avatarName;
-        console.log(newPath);
-        console.log(files.avatar_upload.path);
-        fs.writeFileSync(newPath,"none",function (err) {
-            if(err){
-                throw err;
-            }
-            return;
-        });
-        console.log(files.avatar_upload.path)
-        fs.renameSync(files.avatar_upload.path, newPath);  //重命名
-
-        var  addSql = 'UPDATE user_info SET avatar_url = ? WHERE account_name=?';
-        var  addpara= [avatarName,req.cookies.account_name];
-        connection.query(addSql,addpara,function (err, result) {
-            if(err){
-                console.log('[INSERT ERROR] - ',err.message);
+        }else {
+            var delmql="SELECT avatar_url FROM user_info WHERE account_name=?";
+            var delmqlpara=req.cookies.account_name;
+            connection.query(delmql,delmqlpara,function (err,result) {
+                if(err){
+                    console.log('[INSERT ERROR] - ',err.message);
+                    return;
+                }
+                if(result[0].avatar_url!=="origin.jpg"){
+                    fs.unlink(present+result[0].avatar_url,function (err2) {
+                        if(err2){
+                            throw err2;
+                        }
+                    })
+                }
+            })
+            var avatarName = Math.random() + '.' + extName;
+            var newPath = present + avatarName;
+            console.log(newPath);
+            console.log(files.avatar_upload.path);
+            fs.writeFileSync(newPath, "none", function (err) {
+                if (err) {
+                    throw err;
+                }
                 return;
-            }
-        });
-        var searchsql='SELECT account_intro,account_sex FROM user_info WHERE account_name=?';
-        var searchpara=req.cookies.account_name;
-        connection.query(searchsql,searchpara,function (err,result) {
-            if(err){
-                console.log('[INSERT ERROR] - ',err.message);
-                return;
-            }
-            res.render('index',{account_name:req.cookies.account_name,avatar_img:"/images/"+avatarName,account_intro:result[0].account_intro,account_sex:result[0].account_sex});
-        })
-        res.cookie("account_avatar","/images/"+avatarName,{maxAge:40000,httpOnly:true});
+            });
+            console.log(files.avatar_upload.path)
+            fs.renameSync(files.avatar_upload.path, newPath);  //重命名
 
+            var addSql = 'UPDATE user_info SET avatar_url = ? WHERE account_name=?';
+            var addpara = [avatarName, req.cookies.account_name];
+            connection.query(addSql, addpara, function (err, result) {
+                if (err) {
+                    console.log('[INSERT ERROR] - ', err.message);
+                    return;
+                }
+            });
+            var searchsql = 'SELECT account_intro,account_sex FROM user_info WHERE account_name=?';
+            var searchpara = req.cookies.account_name;
+            connection.query(searchsql, searchpara, function (err, result) {
+                if (err) {
+                    console.log('[INSERT ERROR] - ', err.message);
+                    return;
+                }
+                res.render('index', {
+                    account_name: req.cookies.account_name,
+                    avatar_img: "/images/" + avatarName,
+                    account_intro: result[0].account_intro,
+                    account_sex: result[0].account_sex
+                });
+            })
+            res.cookie("account_avatar", "/images/" + avatarName, {maxAge: 40000, httpOnly: true});
+                }
     });
     return;
 });

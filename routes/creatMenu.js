@@ -48,30 +48,32 @@ router.post('/pic',  function(req, res) {
                 break;
         }
 
-        if(extName.length !== 0){
-
-            var avatarName = Math.random() + '.' + extName;
-            var newPath = present + avatarName;
-            console.log(newPath);
-            console.log(files.topicpicupload.path);
-            fs.writeFileSync(newPath,"none",function (err) {
-                if(err){
-                    throw err;
-                }
-                return;
-            });
-            console.log(files.topicpicupload.path)
-            fs.renameSync(files.topicpicupload.path, newPath);  //重命名
-            var  addSql = 'UPDATE tb_news SET new_picture = ? WHERE new_title = ?';
-            var  addpara= [avatarName,glo];
-            connection.query(addSql,addpara,function (err, result) {
-                if(err){
-                    console.log('[INSERT ERROR] - ',err.message);
-                    return;
-                }
-            });
+        if(extName.length === 0){
+            res.locals.error = '只支持png和jpg格式图片';
+            res.send("err");
+            return;
         }
 
+        var avatarName = Math.random() + '.' + extName;
+        var newPath = present + avatarName;
+        console.log(newPath);
+        console.log(files.topicpicupload.path);
+        fs.writeFileSync(newPath,"none",function (err) {
+            if(err){
+                throw err;
+            }
+            return;
+        });
+        console.log(files.topicpicupload.path)
+        fs.renameSync(files.topicpicupload.path, newPath);  //重命名
+        var  addSql = 'UPDATE tb_news SET new_picture = ? WHERE new_title = ?';
+        var  addpara= [avatarName,glo];
+        connection.query(addSql,addpara,function (err, result) {
+            if(err){
+                console.log('[INSERT ERROR] - ',err.message);
+                return;
+            }
+        });
         var searsql='SELECT new_id FROM tb_news WHERE new_title = ?';
         var searpara=glo;
         connection.query(searsql,searpara,function (err,result) {
