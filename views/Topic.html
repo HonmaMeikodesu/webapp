@@ -19,6 +19,14 @@
     <img src="/topic_images/<%= owner[i].new_picture %>">
 <%  }   %>
     <div><%= owner[i].new_createDate %></div>
+<%if(owner[i].account_name==account_name){ %>
+    <div class="deletenews">
+        <form action="/deletenews" method="post">
+            <input name="new_id" value="<%=owner[i].new_id%>" style="display: none;">
+            <input type="submit" value="删除动态">
+        </form>
+    </div>
+<% } %>
 </div>
 <form action="/sendComments" method="post">
     <input type="text" name="new_id" value="<%=owner[i].new_id%>" style="display: none">
@@ -32,6 +40,14 @@
     <div><%= sender[i].account_name %></div>
     <div><%= sender[i].comment_content %></div>
     <div><%= sender[i].comment_creatTime %></div>
+<%  if(sender[i].account_name==account_name){ %>
+    <div class="deletecomments">
+        <form action="/deletecomments" method="post">
+            <input name="comment_id" value="<%=sender[i].comment_id%>" style="display: none;">
+            <input type="submit" value="删除评论">
+        </form>
+    </div>
+    <% } %>
 </div>
 <% } %>
 <%          i+=1;if(i>=owner.length){break;}}}  %>

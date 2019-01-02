@@ -32,7 +32,7 @@ router.get('/', function(req, res, next) {
         }
         owner=result;
         console.log(owner);
-        res.render('Topic',{sender:sender,owner:owner});
+        res.render('Topic',{sender:sender,owner:owner,account_name:req.cookies.account_name});
     });
 });
 

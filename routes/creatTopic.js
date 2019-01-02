@@ -87,7 +87,7 @@ router.post('/pic',  function(req, res) {
                     console.log('[INSERT ERROR] - ',err.message);
                     return;
                 }
-                res.send('ok!');
+                res.redirect('/showTopic');
             })
         });
 

@@ -14,6 +14,10 @@ var infoManageRouter=require('./routes/infoManage');
 var creatTopicRouter=require('./routes/creatTopic');
 var TopicRouter=require('./routes/showTopic');
 var sendCommentRouter=require('./routes/sendComments');
+var personalRouter=require('./routes/personCenter');
+var menuRouter=require('./routes/menu');
+var delnewsRouter=require('./routes/deletenews');
+var delcomRouter=require('./routes/deletecomments');
 var app = express();
 
 // view engine setup
@@ -36,6 +40,14 @@ app.use('/userInfoModify',infoManageRouter);
 app.use('/creatTopic',creatTopicRouter);
 app.use('/showTopic',TopicRouter);
 app.use('/sendComments',sendCommentRouter);
+app.use('/personalcenter',personalRouter);
+app.get('/quit',function (req,res,next) {
+    res.render('login');
+})
+app.use('/menu',menuRouter);
+app.use('/deletenews',delnewsRouter);
+app.use('/deletecomments',delcomRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

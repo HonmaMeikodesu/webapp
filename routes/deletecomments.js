@@ -1,10 +1,10 @@
 var express = require('express');
 var router = express.Router();
-var mysql = require('mysql');
 var bodyParser = require('body-parser');
-router.use(bodyParser.urlencoded({ extended: false }));
 var cookies=require('cookie-parser');
 router.use(cookies());
+router.use(bodyParser.urlencoded({ extended: false }));
+var mysql = require('mysql');
 var connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'root',
@@ -14,12 +14,13 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
+
 router.post('/', function(req, res, next) {
-    var sql='INSERT INTO tb_comments(account_id,new_id,comment_content) VALUES(?,?,?)';
-    var sqlpara=[req.cookies.account_id,req.body.new_id,req.body.comment_content];
+    var sql='DELETE FROM tb_comments WHERE comment_id=?'
+    var sqlpara=parseInt(req.body.comment_id);
     connection.query(sql,sqlpara,function (err,result) {
         if(err){
-            console.log('[INSERT ERROR] - ',err.message);
+            console.log('[SELECT ERROR] - ',err.message);
             return;
         }
         res.redirect('/showTopic');
